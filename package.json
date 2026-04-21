@@ -1,0 +1,17 @@
+{
+  "name": "backend3-ecommerce-base",
+  "version": "1.0.0",
+  "description": "Proyecto base de ecommerce para Backend 3",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
