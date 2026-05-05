@@ -7,12 +7,15 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import { requestLogger } from './middlewares/requestLogger.js';
 import { cacheControl } from './middlewares/cacheControl.js';
 import compression from 'compression';
+import { requestId } from './middlewares/requestId.js';
+import metricsRouter from './routes/metrics.router.js';
 
 const app = express();
 
 //Bloque 1 - middleware de config
 app.use(compression());
 app.use(express.json());
+app.use(requestId);
 app.use(requestLogger);
 app.use(cacheControl);
 
@@ -27,6 +30,7 @@ app.use((req, res, next)=> {
 app.use('/api/health', healthRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
+app.use('/metrics', metricsRouter);
 
 //Bloque 4 - middleware para errores
 app.use(errorHandler)
