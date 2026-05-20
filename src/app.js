@@ -9,7 +9,8 @@ import { cacheControl } from './middlewares/cacheControl.js';
 import compression from 'compression';
 import { requestId } from './middlewares/requestId.js';
 import metricsRouter from './routes/metrics.router.js';
-import debugRouter from './routes/debug.router.js'
+import debugRouter from './routes/debug.router.js';
+import docsRouter from './routes/docs.router.js';
 
 const app = express();
 
@@ -30,9 +31,15 @@ app.use((req, res, next)=> {
 //Bloque 3 - endpoints
 app.use('/api/health', healthRouter);
 app.use('/api/products', productsRouter);
+
+// GET /api/products/:pid 
+
 app.use('/api/carts', cartsRouter);
-app.use('/metrics', metricsRouter);
-app.use('/api/debug', debugRouter);
+app.use('/api/metrics', metricsRouter);
+if(!env.isProd){
+  app.use('/api/debug', debugRouter);
+  app.use('/api/docs', docsRouter);
+};
 
 //Bloque 4 - middleware para errores
 app.use(errorHandler)

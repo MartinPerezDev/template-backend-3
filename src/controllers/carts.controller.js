@@ -1,4 +1,5 @@
 import { carts } from '../data/carts.js';
+import { successResponse } from '../utils/apiResponse.js';
 
 export function createCart(req, res) {
   const newCart = {
@@ -9,8 +10,9 @@ export function createCart(req, res) {
 
   carts.push(newCart);
 
-  return res.status(201).json({
-    status: 'success',
-    payload: newCart,
+  return successResponse(res, {
+    statusCode: 201,
+    message: 'Cart created',
+    payload: newCart
   });
 };
